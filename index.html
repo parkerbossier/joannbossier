@@ -27,7 +27,7 @@
             window.onload = function() {
                 var $image = document.getElementById('img');
                 var imageAspect = $image.offsetWidth / $image.offsetHeight;
-                window.addEventListener('resize', reposition = function() {
+                window.addEventListener('resize', reposition = (function($image, imageAspect) {
 
                     // maximally fit the image
                     var screenAspect = window.innerWidth / window.innerHeight;
@@ -42,17 +42,17 @@
 
                     // scroll
                     var scrollLeft = Math.max(0, ($image.offsetWidth - window.innerWidth) / 2);
-                    if (scrollLeft >= 0) {
+                    if (scrollLeft > 0) {
                         document.body.scrollTop = 0;
                         document.body.scrollLeft = scrollLeft;
                     }
                     var scrollTop = Math.max(0, ($image.offsetHeight - window.innerHeight) / 2);
-                    if (scrollTop >= 0) {
+                    if (scrollTop > 0) {
                         document.body.scrollLeft = 0;
                         document.body.scrollTop = scrollTop;
                     }
-                });
-                reposition();
+                }).bind({}, $image, imageAspect));
+                setTimeout(reposition, 0);
             };
         </script>
     </head>
