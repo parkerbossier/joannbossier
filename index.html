@@ -7,22 +7,50 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+            }
             html {
                 height: 100%;
-                margin: 0;
-                padding: 0;
             }
             body {
-                background-image: url(background.jpg);
-                background-size: cover;
-                background-position: 50% 50%;
-                background-repeat: no-repeat;
                 width: 100%;
                 height: 100%;
-                margin: 0;
-                padding: 0;
+            }
+            img {
+                display: block;
             }
         </style>
+
+        <script type="text/javascript">
+            window.onload = function() {
+                var $image = document.getElementById('img');
+                var imageAspect = $image.offsetWidth / $image.offsetHeight;
+                window.addEventListener('resize', reposition = function() {
+
+                    // maximally fit the image
+                    var screenAspect = window.innerWidth / window.innerHeight;
+                    if (imageAspect > screenAspect) {
+                        $image.style.height = '100%';
+                        $image.style.width = 'auto';
+                    }
+                    else {
+                        $image.style.height = 'auto';
+                        $image.style.width = '100%';
+                    }
+
+                    // scroll
+                    var scrollLeft = Math.max(0, ($image.offsetWidth - window.innerWidth) / 2);
+                    var scrollTop = Math.max(0, ($image.offsetHeight - window.innerHeight) / 2);
+                    document.body.scrollLeft = scrollLeft;
+                    document.body.scrollTop = scrollTop;
+                });
+                reposition();
+            };
+        </script>
     </head>
-    <body></body>
+    <body>
+        <img id="img" src="background.jpg" alt="JoAnn Bossier"/>
+    </body>
 </html>
